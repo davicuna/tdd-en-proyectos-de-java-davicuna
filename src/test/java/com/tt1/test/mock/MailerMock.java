@@ -13,5 +13,4 @@ public class MailerMock extends MailerStub {
         
         return true; 
     }
-
 }

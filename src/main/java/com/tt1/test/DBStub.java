@@ -3,10 +3,13 @@ package com.tt1.test;
 import java.util.*;
 
 public class DBStub {
-    public void insertarTarea(ToDo tarea) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public List<ToDo> obtenerTodas() { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public void actualizarTarea(ToDo tarea) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public void eliminarTarea(String nombre) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public void guardarEmail(String email) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public List<String> obtenerEmails() { throw new UnsupportedOperationException("Clase aún no implementada."); }
+	private Map<String, ToDo> tareas = new HashMap<>();
+    private List<String> agendaEmails = new ArrayList<>();
+
+    public void insertarTarea(ToDo tarea) { tareas.put(tarea.getNombre(), tarea); }
+    public List<ToDo> obtenerTodas() { return new ArrayList<>(tareas.values()); }
+    public void actualizarTarea(ToDo tarea) { tareas.put(tarea.getNombre(), tarea); }
+    public void eliminarTarea(String nombre) { tareas.remove(nombre); }
+    public void guardarEmail(String email) { agendaEmails.add(email); }
+    public List<String> obtenerEmails() { return agendaEmails; }
 }
