@@ -2,18 +2,15 @@ package com.tt1.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestToDo {
-	
-	private ToDo tarea;
-	
+class TestDBStub {
+	private DBStub db;
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -24,20 +21,20 @@ class TestToDo {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		db=new DBStub();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
-	}
-	
+	void tearDown() throws Exception {}
+
 	@Test
-	public void testCreacionYGetters() {
+	void test() {
+		
+        ToDo tarea = new ToDo("Tarea DB", null);
         
-        Date fecha = null;
+        db.insertarTarea(tarea);
         
-        tarea = new ToDo("Acabar Practica", fecha);
-        assertEquals("Acabar Practica", tarea.getNombre());
-        assertFalse(tarea.isCompletado());
-    }
+        assertEquals(1, db.obtenerTodas().size());
+	}
 
 }
