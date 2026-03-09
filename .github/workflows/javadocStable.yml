@@ -19,18 +19,15 @@ jobs:
       - name: Configurar Java
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Generar HTML de Javadoc
-        # Aquí genera los documentos a partir de tu carpeta src/main/java
         run: javadoc -d ./docs-dist -sourcepath src/main/java -subpackages com.tt1.test
-
       - name: Preparar subida a GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs-dist
-
       - name: Publicar en la Web (GitHub Pages)
         id: deployment
         uses: actions/deploy-pages@v4
