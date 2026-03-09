@@ -1,34 +1,22 @@
 package com.tt1.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Date;
+import java.util.Calendar;
 
-class TestServicio {
-	private Servicio servicio;
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
+public class TestServicio {
+    private Servicio servicio;
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
+    @BeforeEach
     public void setUp() {
         servicio = new Servicio();
     }
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
-   @Test
+    @Test
     public void testCrearYConsultarPendientes() {
+        // Usamos la fecha actual para evitar el error de NullPointerException
         Date hoy = new Date(); 
         servicio.crearTarea("Tarea 1", hoy);
         
@@ -39,14 +27,15 @@ class TestServicio {
     @Test
     public void testAlertaTareasCaducadas() {
         servicio.agregarEmail("admin@universidad.es");
+        
+        // Creamos una fecha del pasado (ayer) para forzar la alerta
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, -1); 
         Date ayer = cal.getTime();
-
+        
         servicio.crearTarea("Tarea Caducada", ayer);
         
+        // Verificamos que la lista de pendientes incluya la tarea caducada
         assertFalse(servicio.consultarPendientes().isEmpty());
     }
-}
-
 }
