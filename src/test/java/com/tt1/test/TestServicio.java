@@ -47,6 +47,6 @@ class TestServicio {
         
         assertFalse(servicio.consultarPendientes().isEmpty());
     }
-}}
+}
 
 }
