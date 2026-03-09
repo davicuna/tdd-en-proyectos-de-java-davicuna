@@ -27,21 +27,26 @@ class TestServicio {
 	void tearDown() throws Exception {
 	}
 
-    @Test
+   @Test
     public void testCrearYConsultarPendientes() {
-        servicio.crearTarea("Tarea 1", null);
+        Date hoy = new Date(); 
+        servicio.crearTarea("Tarea 1", hoy);
+        
         assertEquals(1, servicio.consultarPendientes().size());
         assertEquals("Tarea 1", servicio.consultarPendientes().get(0).getNombre());
     }
 
     @Test
     public void testAlertaTareasCaducadas() {
-        
         servicio.agregarEmail("admin@universidad.es");
-        
-        servicio.crearTarea("Tarea Caducada", null);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1); 
+        Date ayer = cal.getTime();
+
+        servicio.crearTarea("Tarea Caducada", ayer);
         
         assertFalse(servicio.consultarPendientes().isEmpty());
     }
+}}
 
 }
