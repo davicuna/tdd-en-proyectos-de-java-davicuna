@@ -1,0 +1,31 @@
+name: Deploy Javadoc
+
+on:
+  push:
+    branches:
+      - stable
+
+jobs:
+ build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Generar Javadoc
+        # Nota: Ajusta com.tt1.test si tu paquete es distinto 
+        run: javadoc -d ./docs-public -sourcepath src/main/java -subpackages com.tt1.test
+
+      - name: Subir artefacto de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs-public
+
+      - name: Desplegar en GitHub Pages
+        uses: actions/deploy-pages@v4
