@@ -18,6 +18,7 @@ antes de desarrollar el código funcional. Su ciclo fundamental consiste en tres
 * **Tests de Sistema**
 
 ## Tecnologías y Estructura
-* **Java & Maven**
+* **Java & Maven*
 * **JUnit 5**
+
 
